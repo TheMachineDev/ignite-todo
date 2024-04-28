@@ -1,0 +1,33 @@
+.listInfo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.todoCounter {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  gap: 8px;
+}
+
+.todoCounter:nth-child(2) p {
+  color: var(--purple-300);
+} 
+
+.todoCounter p {
+  font-size: .875rem;
+  color: var(--blue-300);
+}
+
+.todoCounter span {
+  font-size: .75rem;
+  background-color: var(--gray-400);
+  padding: .125rem .5rem;
+  border-radius: 50px;
+}
+
+.todoList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .75rem;
+}
