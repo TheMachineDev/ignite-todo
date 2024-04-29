@@ -1,7 +1,7 @@
 import { Todo } from "./Todo";
 import styles from "./TodoList.module.css";
 import { Empty } from "./Empty";
-import { TodoType } from "./Todo";
+import { TodoType } from "../App";
 
 
 interface TodoListProps {
@@ -11,12 +11,6 @@ interface TodoListProps {
 }
 
 export function TodoList({ todos, toggleTodoState, deleteTodo }:TodoListProps) {
-
-  // function handleCreateNewTodo(e: FormEvent) {
-  //   e.preventDefault();
-  //   setNewTodoText("")
-  //   createNewTodo(newTodoText)
-  // }
 
   function handleToggleTodoState(todoToToggledState: string, isCompleted: boolean) {
     const newTodosWithToggledOne = todos.map((todo) => ({

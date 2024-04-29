@@ -3,14 +3,14 @@ import styles from './AddTodo.module.css';
 import { ChangeEvent, FormEvent, useState } from 'react';
 
 interface AddTodoProps {
-  createNewTodo: (newValue: string) => object;
+  createNewTodo: (inputValue: string) => object | void;
 }
 
 export function AddTodo({ createNewTodo }: AddTodoProps) {
 
   const [newTodoText, setNewTodoText] = useState("");
 
-  function handleNewTodoChange(event: ChangeEvent<HTMLInputElement>) {
+  function handleValueChange(event: ChangeEvent<HTMLInputElement>) {
     event.target.setCustomValidity('');
     setNewTodoText(event.target.value);
   }
@@ -28,7 +28,7 @@ export function AddTodo({ createNewTodo }: AddTodoProps) {
           name="searchBar"
           placeholder="Adicione uma tarefa"
           value={newTodoText}
-          onChange={handleNewTodoChange}
+          onChange={handleValueChange}
         />
         <button type="submit" onClick={handleCreateNewTodo}>
           Criar

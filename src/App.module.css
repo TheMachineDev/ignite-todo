@@ -7,3 +7,13 @@
   align-items: flex-start;
   gap: 4rem;
 }
+
+@media (max-width: 768px) {
+  html {
+    font-size: 87.5%;
+  }
+
+  .wrapper {
+    padding: 0 2rem;
+  }
+}

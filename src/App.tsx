@@ -3,54 +3,45 @@ import styles from './App.module.css';
 import { AddTodo } from './components/AddTodo';
 import { TodoList } from './components/TodoList';
 import { useState } from 'react';
-import { TodoType } from './components/Todo';
+import { v4 as uuid } from 'uuid';
+
+export interface TodoType {
+  id: string;
+  content: string;
+  isCompleted: boolean;
+}
 
 export function App() {
-  function createNewTodo(newValue: string) {
-    const newTodo = {
-      id: (Math.random() + 1).toString(36).substring(7),
-      content: newValue,
-      isCompleted: false,
+  function createNewTodo(inputValue: string) {
+    if (inputValue) {
+
+      const newTodo = {
+        id: uuid(),
+        content: inputValue,
+        isCompleted: false,
+      }
+      setTodos([...todos, newTodo]) 
+      return newTodo
     }
-    setTodos([...todos, newTodo])
-    return newTodo
   }
 
-  function toggleTodoState(newTodosWithToggledOne: TodoType[]) {
+  function handleToggleTodoState(newTodosWithToggledOne: TodoType[]) {
     setTodos(newTodosWithToggledOne);
   }
 
-  function deleteTodo(todosWithoutDeletedTodo: TodoType[]){
+  function handleDeleteTodo(todosWithoutDeletedTodo: TodoType[]){
     setTodos(todosWithoutDeletedTodo)
   }
 
-  const [todos, setTodos] = useState([
-    {
-      id: "1",
-      content: "Terminar o desafio",
-      isCompleted: false,
-    },
-    {
-      id: "2",
-      content: "Terminar o curso de React",
-      isCompleted: false,
-    },
-    {
-      id: "3",
-      content: "Terminar a primeira parte do modulo de React",
-      isCompleted: true,
-    },
-  ]);
-
+  const [todos, setTodos] = useState<TodoType[]>([]);
   
   return (
     <>
      <Header />
      <div className={styles.wrapper}>
        <AddTodo createNewTodo={createNewTodo} />
-       <TodoList todos={todos} toggleTodoState={toggleTodoState} deleteTodo={deleteTodo}/>
+       <TodoList todos={todos} toggleTodoState={handleDeleteTodo} deleteTodo={handleToggleTodoState}/>
      </div>
-    
     </>
   )
 }
