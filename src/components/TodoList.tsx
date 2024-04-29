@@ -1,42 +1,38 @@
-import { useState } from "react";
-import { Todo, TodoProps } from "./Todo";
+import { Todo } from "./Todo";
 import styles from "./TodoList.module.css";
 import { Empty } from "./Empty";
+import { TodoType } from "./Todo";
 
-export function TodoList() {
-  const [todos, setTodos] = useState([
-    {
-      id: "1",
-      content: "Terminar o desafio",
-      isCompleted: false,
-    },
-    {
-      id: "2",
-      content: "Terminar o curso de React",
-      isCompleted: false,
-    },
-    {
-      id: "3",
-      content: "Terminar a primeira parte do modulo de React",
-      isCompleted: true,
-    },
-  ]);
 
-  function toggleTodoState(todoToToggledState: string, isCompleted: boolean) {
+interface TodoListProps {
+  todos: TodoType[],
+  toggleTodoState: (toggledTodo: TodoType[]) => void,
+  deleteTodo: (todosWithoutDeleted: TodoType[]) => void,
+}
+
+export function TodoList({ todos, toggleTodoState, deleteTodo }:TodoListProps) {
+
+  // function handleCreateNewTodo(e: FormEvent) {
+  //   e.preventDefault();
+  //   setNewTodoText("")
+  //   createNewTodo(newTodoText)
+  // }
+
+  function handleToggleTodoState(todoToToggledState: string, isCompleted: boolean) {
     const newTodosWithToggledOne = todos.map((todo) => ({
       ...todo,
       ...(todo.id === todoToToggledState && { isCompleted: !isCompleted }),
     }));
 
-    setTodos(newTodosWithToggledOne);
+    toggleTodoState(newTodosWithToggledOne);
   }
 
-  function deleteTodo(todoToDelete: string) {
+  function handleDeleteTodo(todoToDelete: string) {
     const todosWithoutDeletedTodo = todos.filter(
       (todo) => todo.id !== todoToDelete
     );
 
-    setTodos(todosWithoutDeletedTodo);
+    deleteTodo(todosWithoutDeletedTodo);
   }
   //console.log(todos.filter(todo => todo.isCompleted === true).length)
 
@@ -65,8 +61,8 @@ export function TodoList() {
             <Todo
               key={todo.id}
               todo={todo}
-              toggleTodoState={toggleTodoState}
-              deleteTodo={deleteTodo}
+              toggleTodoState={handleToggleTodoState}
+              deleteTodo={handleDeleteTodo}
             />
           ))
         ) : (
