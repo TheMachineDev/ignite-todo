@@ -1,29 +1,38 @@
 import { CheckCircle, Trash } from '@phosphor-icons/react';
 import styles from './Todo.module.css';
 
-export interface TodoProps {
+export interface TodoType {
   id: string;
   content: string;
   isCompleted: boolean;
-  toggleTodoState: (id: string, isCompleted: boolean) => void;
 }
 
-export function Todo({ id, content, isCompleted, toggleTodoState }: TodoProps) {
+interface TodoProps {
+  todo: TodoType
+  toggleTodoState: (id: string, isCompleted: boolean) => void;
+  deleteTodo: (id: string) => void;
+}
+
+export function Todo({ todo, toggleTodoState, deleteTodo }: TodoProps) {
 
   function handleTodoState(){
-    toggleTodoState(id, isCompleted);
+    toggleTodoState(todo.id, todo.isCompleted);
+  }
+
+  function handleTodoDelete(){
+    deleteTodo(todo.id);
   }
 
   return (
     <div className={styles.todo}>
       <div className={styles.checkboxContainer}>
-        <input type="checkbox" readOnly id={id} checked={isCompleted} onClick={handleTodoState}/>
-        <label htmlFor={id}>
+        <input type="checkbox" readOnly id={todo.id} checked={todo.isCompleted} onClick={handleTodoState}/>
+        <label htmlFor={todo.id}>
           <span><CheckCircle className={styles.checkCircle} weight="fill" size={21}/></span>
-          {content}
+          {todo.content}
         </label>
       </div>
-      <button title="Deletar tarefa" >
+      <button title="Deletar tarefa" onClick={handleTodoDelete}>
         <Trash size={18} weight="bold"/>
       </button>
     </div>
