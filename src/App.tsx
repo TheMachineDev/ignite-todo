@@ -1,7 +1,7 @@
 import { Header } from "./components/Header";
 import styles from "./App.module.css";
 import { TodoListHeader } from "./components/TodoListHeader";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { Input } from "./components/Input";
 import { Button } from "./components/Button";
@@ -15,9 +15,15 @@ export interface TodoType {
 }
 
 export function App() {
-  const [todos, setTodos] = useState<TodoType[]>([]);
+  const [todos, setTodos] = useState<TodoType[]>(JSON.parse(localStorage.getItem('@ignite-todo:todos-state-1.0.0') || '[]'));
   const [inputValue, setInputValue] = useState("");
 
+  useEffect(() => {
+    const stateJSON = JSON.stringify(todos)
+    localStorage.setItem('@ignite-todo:todos-state-1.0.0', stateJSON)
+  }, [todos])
+
+  
   function handleValueChange(e: ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value);
   }
@@ -53,7 +59,8 @@ export function App() {
 
   const isSubmitDisabled = !inputValue;
   const todosCount = todos.length
-  // todos.filter((todo) => todo.isCompleted === true).length
+  
+  // const completedTodosCount todos.filter((todo) => todo.isCompleted === true).length
   const completedTodosCount = todos.reduce((counter, currentTodo) => {
     if (currentTodo.isCompleted)
       counter += 1
