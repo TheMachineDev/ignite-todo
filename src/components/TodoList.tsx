@@ -28,7 +28,6 @@ export function TodoList({ todos, toggleTodoState, deleteTodo }:TodoListProps) {
 
     deleteTodo(todosWithoutDeletedTodo);
   }
-  //console.log(todos.filter(todo => todo.isCompleted === true).length)
 
   return (
     <div>

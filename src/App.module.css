@@ -8,6 +8,11 @@
   gap: 4rem;
 }
 
+.addTodo {
+  display: flex;
+  gap: 8px;
+}
+
 @media (max-width: 768px) {
   html {
     font-size: 87.5%;

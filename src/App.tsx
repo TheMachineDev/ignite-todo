@@ -1,9 +1,10 @@
 import { Header } from './components/Header';
 import styles from './App.module.css';
-import { AddTodo } from './components/AddTodo';
 import { TodoList } from './components/TodoList';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { v4 as uuid } from 'uuid';
+import { Input } from './components/Input';
+import { Button } from './components/Button';
 
 export interface TodoType {
   id: string;
@@ -12,7 +13,15 @@ export interface TodoType {
 }
 
 export function App() {
-  function createNewTodo(inputValue: string) {
+  const [todos, setTodos] = useState<TodoType[]>([]);
+  const [inputValue, setInputValue] = useState("");
+  
+  function handleValueChange(e: ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.target.value);
+  }
+
+  function handleCreateNewTodo(e: FormEvent) {
+    e.preventDefault();
     if (inputValue) {
 
       const newTodo = {
@@ -21,7 +30,6 @@ export function App() {
         isCompleted: false,
       }
       setTodos([...todos, newTodo]) 
-      return newTodo
     }
   }
 
@@ -33,15 +41,18 @@ export function App() {
     setTodos(todosWithoutDeletedTodo)
   }
 
-  const [todos, setTodos] = useState<TodoType[]>([]);
-  
+  const isSubmitDisabled = !inputValue
+
   return (
     <>
      <Header />
-     <div className={styles.wrapper}>
-       <AddTodo createNewTodo={createNewTodo} />
-       <TodoList todos={todos} toggleTodoState={handleDeleteTodo} deleteTodo={handleToggleTodoState}/>
-     </div>
+      <div className={styles.wrapper}>
+        <form className={styles.addTodo}>
+          <Input value={inputValue} onChange={handleValueChange} /> 
+          <Button disabled={isSubmitDisabled} onClick={handleCreateNewTodo} />
+        </form>
+        <TodoList todos={todos} toggleTodoState={handleDeleteTodo} deleteTodo={handleToggleTodoState}/>
+      </div>
     </>
   )
 }

@@ -1,20 +1,4 @@
-.addTodo {
-  display: flex;
-  gap: 8px;
-}
-
-.addTodo input {
-  width: 100%;
-  background-color: var(--gray-500);
-  color: var(--gray-100);
-  line-height: 1.4;
-  padding: 1rem;
-  border-radius: 8px;
-  flex: 1;
-  border: 1px solid var(--gray-700);
-}
-
-.addTodo button[type="submit"] {
+.submitButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,6 +14,12 @@
   cursor: pointer;
 }
 
-.addTodo button[type="submit"]:hover {
+.submitButton:disabled {
+  filter: brightness(70%);
+  cursor: not-allowed;
+}
+
+
+.submitButton:not(:disabled):hover {
   background-color: var(--blue-300);
 }
