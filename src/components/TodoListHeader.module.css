@@ -1,4 +1,4 @@
-.listInfo {
+.listHeader {
   display: flex;
   justify-content: space-between;
 }
@@ -26,9 +26,3 @@
   border-radius: 50px;
 }
 
-.todoList {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: .75rem;
-  margin-top: 1.5rem;
-}
