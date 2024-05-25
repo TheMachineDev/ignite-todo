@@ -38,14 +38,19 @@
 }
 
 .checkboxContainer label {
-  line-height: 1.4;
   display: flex;
   gap: .75rem;
   cursor: pointer;
+}
+
+.checkboxContainer label p {
+  line-height: 1.4;
+  margin-top: -1.4px;
   line-break: anywhere;
   transition: 
     color 150ms,
     text-decoration 150ms;
+  user-select: none;
 }
 
 .checkboxContainer input[type="checkbox"] {
@@ -61,7 +66,6 @@
   height: 1.1rem;
   border-radius: 50%;
   border: 2px solid var(--blue-300);
-  margin: .2rem;
   box-sizing: border-box;
   position: relative;
   outline-offset: 2px;
